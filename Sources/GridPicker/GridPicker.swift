@@ -20,6 +20,13 @@ public struct GridPicker<Item, ItemView>: View where Item: Identifiable, Item : 
         (0...columns).map({_ in GridItem(.flexible())})
     }
     
+    public init(columns: Int, items: [Item], selected: Binding<Item>, itemViewBuilder: @escaping (Item) -> ItemView) {
+        self.columns = columns
+        self.items = items
+        self.itemViewBuilder = itemViewBuilder
+        self._selected = selected
+    }
+    
     public var body: some View {
         LazyVGrid(columns: gridItems) {
             ForEach(items) {
